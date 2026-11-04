@@ -471,3 +471,108 @@ html {
   background: #00aaff;
   color: white;
 }
+/* VEXORA 3D PLANET */
+
+.planet-section {
+  text-align: center;
+  padding: 100px 20px;
+  overflow: hidden;
+  background: radial-gradient(circle, #06264a, #020817 70%);
+  position: relative;
+}
+
+.planet-section h2 {
+  font-size: clamp(32px, 5vw, 55px);
+  color: white;
+  margin: 20px 0;
+}
+
+.planet-section h2 span {
+  color: #00d9ff;
+  text-shadow: 0 0 20px #00cfff;
+}
+
+.planet-container {
+  height: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+}
+
+.planet {
+  width: 210px;
+  height: 210px;
+  border-radius: 50%;
+  position: relative;
+  background:
+    radial-gradient(circle at 30% 25%, #8af5ff, transparent 12%),
+    radial-gradient(circle at 65% 65%, #0077ff, transparent 35%),
+    radial-gradient(circle at 35% 35%, #0878c9, #03102d 75%);
+  box-shadow:
+    inset -25px -20px 45px #000b2a,
+    0 0 35px #00aaff,
+    0 0 90px #0066ff;
+  animation: planetRotate 8s linear infinite,
+             planetFloat 4s ease-in-out infinite;
+}
+
+.planet-ring {
+  position: absolute;
+  width: 310px;
+  height: 90px;
+  border: 4px solid #00d9ff;
+  border-radius: 50%;
+  top: 60px;
+  left: -50px;
+  transform: rotate(-25deg);
+  box-shadow: 0 0 15px #00d9ff;
+}
+
+.planet-glow {
+  position: absolute;
+  inset: -35px;
+  border-radius: 50%;
+  background: #008cff;
+  filter: blur(65px);
+  opacity: 0.25;
+  z-index: -1;
+}
+
+.planet-section h3 {
+  color: #00d9ff;
+  font-size: 24px;
+  margin-top: 20px;
+}
+
+.planet-section p {
+  color: #b8cce5;
+  line-height: 1.8;
+}
+
+@keyframes planetRotate {
+  from { filter: hue-rotate(0deg); }
+  to { filter: hue-rotate(360deg); }
+}
+
+@keyframes planetFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-18px); }
+}
+
+@media (max-width: 600px) {
+  .planet-container {
+    height: 280px;
+  }
+
+  .planet {
+    width: 165px;
+    height: 165px;
+  }
+
+  .planet-ring {
+    width: 245px;
+    left: -40px;
+    top: 40px;
+  }
+}
