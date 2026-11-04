@@ -103,20 +103,51 @@ document.getElementById('status').innerText='PDF created successfully!';
 
 function compress(){
 const file=document.getElementById('compressImage').files[0];
-if(!file){alert('Select an image first');return;}
+
+if(!file){
+alert('Please select an image first!');
+return;
+}
+
+const quality=document.getElementById('qualitySlider').value/100;
 const img=new Image();
+
 img.onload=()=>{
 const canvas=document.createElement('canvas');
-canvas.width=img.width;canvas.height=img.height;
+canvas.width=img.width;
+canvas.height=img.height;
+
 canvas.getContext('2d').drawImage(img,0,0);
+
 canvas.toBlob(blob=>{
+
+if(!blob){
+alert('Compression failed!');
+return;
+}
+
+const originalSize=(file.size/1024).toFixed(2);
+const newSize=(blob.size/1024).toFixed(2);
+
+document.getElementById('sizeInfo').innerText=
+'Original: '+originalSize+' KB | Compressed: '+newSize+' KB';
+
 const url=URL.createObjectURL(blob);
-const a=document.createElement('a');
-a.href=url;a.download='VEXORA-compressed.jpg';a.click();
-URL.revokeObjectURL(url);
-document.getElementById('status').innerText='Compressed image downloaded!';
-},'image/jpeg',0.6);
+
+document.getElementById('compressPreview').src=url;
+
+const download=document.getElementById('downloadArea');
+download.href=url;
+download.download='VEXORA-compressed.jpg';
+download.style.display='inline-block';
+
+document.getElementById('status').innerText=
+'Image compressed successfully!';
+
+},'image/jpeg',quality);
+
 };
+
 img.src=URL.createObjectURL(file);
 }
 
