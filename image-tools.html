@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VEXORA Image Tools</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+background:#050816;color:white;
+font-family:Arial,sans-serif;
+padding:30px 15px;
+}
+header{text-align:center;margin-bottom:40px}
+h1{font-size:38px;color:#00c8ff}
+header p{color:#aaa;margin-top:10px}
+.container{max-width:900px;margin:auto}
+.tools{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+}
+.card{
+background:#101a30;
+border:1px solid #174c75;
+border-radius:16px;
+padding:25px;
+text-align:center;
+}
+.card h2{color:#00c8ff;margin-bottom:12px}
+.card p{color:#bbb;line-height:1.5;margin-bottom:20px}
+button{
+background:#00bfff;color:#00101a;
+border:0;padding:12px 20px;
+border-radius:8px;font-weight:bold;
+cursor:pointer;
+}
+button:hover{background:#65ddff}
+input{max-width:100%;margin:15px 0}
+#status{margin-top:25px;color:#00e5ff;text-align:center}
+a{color:#00c8ff}
+</style>
+</head>
+<body>
+<header>
+<h1>VEXORA TOOLS</h1>
+<p>Simple. Smart. Free Image Tools.</p>
+</header>
+
+<div class="container">
+<div class="tools">
+
+<div class="card">
+<h2>Image to PDF</h2>
+<p>Convert your images into a PDF file.</p>
+<input type="file" id="pdfImages" accept="image/*" multiple>
+<button onclick="makePDF()">Convert to PDF</button>
+</div>
+
+<div class="card">
+<h2>Image Compressor</h2>
+<p>Reduce image file size easily.</p>
+<input type="file" id="compressImage" accept="image/*">
+<button onclick="compress()">Compress Image</button>
+</div>
+
+<div class="card">
+<h2>Image Resize</h2>
+<p>Resize your image dimensions.</p>
+<input type="file" id="resizeImage" accept="image/*">
+<button onclick="resize()">Resize Image</button>
+</div>
+
+</div>
+<p id="status">Welcome to VEXORA Tools 🚀</p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+async function makePDF(){
+const files=document.getElementById('pdfImages').files;
+if(!files.length){alert('Please select images first');return;}
+const {jsPDF}=window.jspdf;
+const pdf=new jsPDF();
+for(let i=0;i<files.length;i++){
+const data=await new Promise(resolve=>{
+const reader=new FileReader();
+reader.onload=e=>resolve(e.target.result);
+reader.readAsDataURL(files[i]);
+});
+if(i>0)pdf.addPage();
+const img=new Image();
+await new Promise(resolve=>{img.onload=resolve;img.src=data});
+const w=pdf.internal.pageSize.getWidth();
+const h=pdf.internal.pageSize.getHeight();
+const scale=Math.min(w/img.width,h/img.height);
+const iw=img.width*scale,ih=img.height*scale;
+pdf.addImage(data,'JPEG',(w-iw)/2,(h-ih)/2,iw,ih);
+}
+pdf.save('VEXORA-images.pdf');
+document.getElementById('status').innerText='PDF created successfully!';
+}
+
+function compress(){
+const file=document.getElementById('compressImage').files[0];
+if(!file){alert('Select an image first');return;}
+const img=new Image();
+img.onload=()=>{
+const canvas=document.createElement('canvas');
+canvas.width=img.width;canvas.height=img.height;
+canvas.getContext('2d').drawImage(img,0,0);
+canvas.toBlob(blob=>{
+const url=URL.createObjectURL(blob);
+const a=document.createElement('a');
+a.href=url;a.download='VEXORA-compressed.jpg';a.click();
+URL.revokeObjectURL(url);
+document.getElementById('status').innerText='Compressed image downloaded!';
+},'image/jpeg',0.6);
+};
+img.src=URL.createObjectURL(file);
+}
+
+function resize(){
+const file=document.getElementById('resizeImage').files[0];
+if(!file){alert('Select an image first');return;}
+const img=new Image();
+img.onload=()=>{
+const canvas=document.createElement('canvas');
+canvas.width=800;
+canvas.height=Math.round(img.height*(800/img.width));
+canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
+const a=document.createElement('a');
+a.href=canvas.toDataURL('image/jpeg',0.85);
+a.download='VEXORA-resized.jpg';
+a.click();
+document.getElementById('status').innerText='Resized image downloaded!';
+};
+img.src=URL.createObjectURL(file);
+}
+</script>
+</body>
+</html>
