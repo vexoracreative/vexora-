@@ -230,11 +230,12 @@ if (planet && container) {
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
 
-    planet.style.transform =
-      `translateY(-8px) rotateX(${-y * 25}deg) rotateY(${x * 25}deg)`;
+    planet.style.setProperty("--tiltX", `${-y * 20}deg`);
+    planet.style.setProperty("--tiltY", `${x * 20}deg`);
   });
 
   container.addEventListener("mouseleave", () => {
-    planet.style.transform = "";
+    planet.style.setProperty("--tiltX", "0deg");
+    planet.style.setProperty("--tiltY", "0deg");
   });
 }
