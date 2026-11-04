@@ -1041,3 +1041,70 @@ html {
     width: var(--level);
   }
 }
+/* VEXORA AI DESIGN */
+
+#vexora-ai {
+  min-height: 450px;
+  padding: 60px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #050914;
+  color: white;
+  text-align: center;
+  border-radius: 20px;
+  margin: 30px 0;
+}
+
+.ai-welcome {
+  width: 100%;
+  max-width: 650px;
+}
+
+.ai-robot {
+  font-size: 85px;
+  filter: drop-shadow(0 0 20px #168cff);
+  animation: robotGlow 2s infinite alternate;
+}
+
+.ai-welcome h1 {
+  font-size: 42px;
+  letter-spacing: 5px;
+  color: #38aaff;
+  margin: 15px 0;
+}
+
+.ai-welcome p {
+  color: #b8c9df;
+  font-size: 16px;
+}
+
+.ai-options {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.ai-options button {
+  padding: 15px 24px;
+  border: 1px solid #168cff;
+  border-radius: 12px;
+  background: #091b35;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.ai-options button:hover {
+  background: #087fff;
+  box-shadow: 0 0 20px #168cff;
+  transform: translateY(-4px);
+}
+
+@keyframes robotGlow {
+  from { transform: translateY(0); }
+  to { transform: translateY(-10px); }
+}
