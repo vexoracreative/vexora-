@@ -160,3 +160,71 @@ footer {
   margin: 30px auto;
   animation: glow 3s infinite;
 }
+
+/* VEXORA PREMIUM HERO DESIGN */
+
+.hero {
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-content {
+  max-width: 850px;
+  margin: auto;
+  animation: fadeUp 1.2s ease both;
+}
+
+.hero h1 span {
+  color: #00cfff;
+  text-shadow: 0 0 15px #008cff,
+               0 0 35px rgba(0, 200, 255, .6);
+}
+
+.hero h3 {
+  margin: 20px 0;
+  color: #d9f5ff;
+}
+
+.hero .tagline {
+  color: #00d5ff;
+  letter-spacing: 5px;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.hero .profile-photo {
+  width: 230px;
+  height: 270px;
+  border-radius: 25px;
+  border: 3px solid #00d5ff;
+  box-shadow: 0 0 25px #008cff,
+              0 0 55px rgba(0, 190, 255, .45);
+  object-fit: cover;
+  margin: 30px auto;
+}
+
+.hero-content > p:not(.tagline) {
+  max-width: 600px;
+  margin: 20px auto 30px;
+}
+
+@media (max-width: 600px) {
+  .hero {
+    min-height: 85vh;
+    padding: 70px 5%;
+  }
+
+  .hero .tagline {
+    letter-spacing: 2px;
+  }
+
+  .hero .profile-photo {
+    width: 190px;
+    height: 230px;
+  }
+}
