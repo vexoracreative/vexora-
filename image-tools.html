@@ -54,6 +54,23 @@ a{color:#00c8ff}
 <h2>Image to PDF</h2>
 <p>Convert your images into a PDF file.</p>
 <input type="file" id="pdfImages" accept="image/*" multiple>
+  <label style="display:block;margin-top:15px;">
+  PDF Page Size:
+</label>
+
+<select id="pdfPageSize" style="padding:10px;width:100%;margin:10px 0;">
+  <option value="a4">A4 Size</option>
+  <option value="original">Original Image Size</option>
+</select>
+
+<label style="display:block;margin-top:10px;">
+  Page Orientation:
+</label>
+
+<select id="pdfOrientation" style="padding:10px;width:100%;margin:10px 0;">
+  <option value="portrait">Portrait</option>
+  <option value="landscape">Landscape</option>
+</select>
 <button onclick="makePDF()">Convert to PDF</button>
 </div>
 
