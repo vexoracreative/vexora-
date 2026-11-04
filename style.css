@@ -790,3 +790,107 @@ html {
   position: relative;
   z-index: 1;
 }
+.profile-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 70px 20px;
+  perspective: 1000px;
+}
+
+.holo-card {
+  position: relative;
+  width: 340px;
+  max-width: 100%;
+  padding: 30px;
+  border-radius: 24px;
+  overflow: hidden;
+  text-align: center;
+  color: white;
+  background: linear-gradient(145deg, #101f3d, #050914);
+  border: 1px solid #00c8ff;
+  box-shadow: 0 0 25px rgba(0, 195, 255, 0.25),
+              inset 0 0 25px rgba(0, 195, 255, 0.1);
+  transform-style: preserve-3d;
+  animation: holoFloat 4s ease-in-out infinite;
+}
+
+.holo-glow {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  top: -100px;
+  right: -70px;
+  background: #008cff;
+  filter: blur(90px);
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.profile-top,
+.profile-bottom {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #8bdfff;
+}
+
+.profile-status {
+  color: #00ffae;
+}
+
+.profile-avatar {
+  width: 90px;
+  height: 90px;
+  margin: 35px auto 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  font-size: 30px;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(135deg, #00c8ff, #263cff);
+  border: 3px solid #8beaff;
+  box-shadow: 0 0 25px #008cff;
+}
+
+.holo-card h2 {
+  position: relative;
+  font-size: 24px;
+  letter-spacing: 2px;
+  text-shadow: 0 0 15px #00c8ff;
+}
+
+.profile-role {
+  color: #00c8ff;
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+
+.profile-line {
+  height: 1px;
+  margin: 25px 0;
+  background: linear-gradient(90deg, transparent, #00c8ff, transparent);
+}
+
+.profile-quote {
+  color: #b8cde8;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.profile-bottom {
+  margin-top: 35px;
+}
+
+@keyframes holoFloat {
+  0%, 100% {
+    transform: translateY(0) rotateX(2deg);
+  }
+  50% {
+    transform: translateY(-10px) rotateX(-2deg);
+  }
+}
