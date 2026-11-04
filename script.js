@@ -284,3 +284,73 @@ if (holoCard) {
     holoCard.style.animation = "";
   });
 }
+// VEXORA AI INTERFACE
+
+window.showAI = function(mode) {
+  const section = document.getElementById("vexora-ai");
+
+  if (mode === "chat") {
+    section.innerHTML = `
+      <div class="ai-welcome">
+        <div class="ai-robot">🤖</div>
+        <h1>VEXORA AI</h1>
+        <p>Your intelligent AI assistant.</p>
+
+        <div id="chatMessages"
+          style="margin:25px auto; max-width:550px; text-align:left;">
+        </div>
+
+        <div class="ai-options">
+          <input id="chatInput"
+            placeholder="Ask me anything..."
+            style="padding:15px; flex:1; min-width:180px; border-radius:10px;">
+          <button onclick="sendVexoraMessage()">Send</button>
+        </div>
+
+        <button onclick="showAI('home')">← Back</button>
+      </div>
+    `;
+  }
+
+  else if (mode === "image") {
+    section.innerHTML = `
+      <div class="ai-welcome">
+        <div class="ai-robot">🤖</div>
+        <h1>AI IMAGE STUDIO</h1>
+        <p>Describe the image you want to create.</p>
+
+        <input id="imagePrompt"
+          placeholder="Describe your image..."
+          style="padding:15px; width:90%; max-width:450px; border-radius:10px;">
+
+        <div class="ai-options">
+          <button onclick="alert('Image generation connection will be added next!')">
+            🎨 Generate Image
+          </button>
+          <button onclick="showAI('home')">← Back</button>
+        </div>
+      </div>
+    `;
+  }
+
+  else {
+    location.reload();
+  }
+};
+
+window.sendVexoraMessage = function() {
+  const input = document.getElementById("chatInput");
+  const messages = document.getElementById("chatMessages");
+
+  if (!input.value.trim()) return;
+
+  const message = document.createElement("p");
+  message.textContent = "You: " + input.value;
+  messages.appendChild(message);
+
+  const notice = document.createElement("p");
+  notice.textContent = "VEXORA AI: AI connection is coming soon!";
+  messages.appendChild(notice);
+
+  input.value = "";
+};
