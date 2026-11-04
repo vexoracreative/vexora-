@@ -653,7 +653,23 @@ html {
   animation: starTwinkle 2s ease-in-out infinite alternate;
   pointer-events: none;
 }
+/* PLANET 3D MOUSE TILT FIX */
 
+.planet {
+  transform: perspective(1000px)
+    rotateX(var(--tiltX, 0deg))
+    rotateY(var(--tiltY, 0deg));
+  transition: transform 0.15s ease-out;
+}
+
+@keyframes planetFloat {
+  0%, 100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -18px;
+  }
+}
 @keyframes starTwinkle {
   from { opacity: 0.25; }
   to { opacity: 1; }
