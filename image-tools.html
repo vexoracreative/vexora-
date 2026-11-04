@@ -112,27 +112,108 @@ Download Image
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 async function makePDF(){
+
 const files=document.getElementById('pdfImages').files;
-if(!files.length){alert('Please select images first');return;}
-const {jsPDF}=window.jspdf;
-const pdf=new jsPDF();
-for(let i=0;i<files.length;i++){
-const data=await new Promise(resolve=>{
-const reader=new FileReader();
-reader.onload=e=>resolve(e.target.result);
-reader.readAsDataURL(files[i]);
-});
-if(i>0)pdf.addPage();
-const img=new Image();
-await new Promise(resolve=>{img.onload=resolve;img.src=data});
-const w=pdf.internal.pageSize.getWidth();
-const h=pdf.internal.pageSize.getHeight();
-const scale=Math.min(w/img.width,h/img.height);
-const iw=img.width*scale,ih=img.height*scale;
-pdf.addImage(data,'JPEG',(w-iw)/2,(h-ih)/2,iw,ih);
+
+if(!files.length){
+alert('Please select images first!');
+return;
 }
-pdf.save('VEXORA-images.pdf');
-document.getElementById('status').innerText='PDF created successfully!';
+
+const {jsPDF}=window.jspdf;
+
+const sizeOption=document.getElementById('pdfPageSize')?.value || 'a4';
+const orientation=document.getElementById('pdfOrientation')?.value || 'portrait';
+
+let pdf;
+
+for(let i=0;i<files.length;i++){
+
+const file=files[i];
+
+const imageURL=URL.createObjectURL(file);
+
+try{
+
+const img=await new Promise((resolve,reject)=>{
+const image=new Image();
+image.onload=()=>resolve(image);
+image.onerror=reject;
+image.src=imageURL;
+});
+
+let pageWidth,pageHeight;
+
+if(sizeOption==='original'){
+
+pageWidth=img.width*25.4/96;
+pageHeight=img.height*25.4/96;
+
+}else{
+
+pageWidth=orientation==='landscape'?297:210;
+pageHeight=orientation==='landscape'?210:297;
+
+}
+
+if(!pdf){
+pdf=new jsPDF({
+orientation:orientation,
+unit:'mm',
+format:sizeOption==='original'?[pageWidth,pageHeight]:'a4'
+});
+}else{
+pdf.addPage(
+sizeOption==='original'?[pageWidth,pageHeight]:'a4',
+orientation
+);
+}
+
+const canvas=document.createElement('canvas');
+canvas.width=img.width;
+canvas.height=img.height;
+
+const ctx=canvas.getContext('2d');
+ctx.fillStyle='#ffffff';
+ctx.fillRect(0,0,canvas.width,canvas.height);
+ctx.drawImage(img,0,0);
+
+const imageData=canvas.toDataURL('image/jpeg',0.92);
+
+const margin=sizeOption==='original'?0:10;
+const maxWidth=pageWidth-margin*2;
+const maxHeight=pageHeight-margin*2;
+
+const scale=Math.min(maxWidth/img.width,maxHeight/img.height);
+
+const finalWidth=img.width*scale;
+const finalHeight=img.height*scale;
+
+pdf.addImage(
+imageData,
+'JPEG',
+(pageWidth-finalWidth)/2,
+(pageHeight-finalHeight)/2,
+finalWidth,
+finalHeight
+);
+
+}catch(error){
+
+alert('Unable to process: '+file.name);
+return;
+
+}finally{
+URL.revokeObjectURL(imageURL);
+}
+
+}
+
+pdf.save('VEXORA-Images.pdf');
+
+document.getElementById('status').innerText=
+'Your PDF has been created successfully!';
+
 }
 
 async function compress(){
