@@ -674,3 +674,36 @@ html {
   from { opacity: 0.25; }
   to { opacity: 1; }
 }
+.clock-3d {
+  margin: 40px auto;
+  padding: 30px 20px;
+  max-width: 380px;
+  text-align: center;
+  background: linear-gradient(145deg, #101b35, #050914);
+  border: 1px solid #00c8ff;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 195, 255, 0.25),
+              inset 0 0 20px rgba(0, 195, 255, 0.12);
+  transform: perspective(800px) rotateX(5deg);
+}
+
+.clock-label {
+  color: #00c8ff;
+  letter-spacing: 4px;
+  font-size: 12px;
+  margin-bottom: 18px;
+}
+
+#digital-time {
+  color: #ffffff;
+  font-size: 38px;
+  font-weight: bold;
+  text-shadow: 0 0 12px #00c8ff,
+               0 0 25px #0077ff;
+}
+
+#digital-date {
+  color: #9ab8d8;
+  margin-top: 12px;
+  font-size: 15px;
+}
