@@ -61,6 +61,26 @@ a{color:#00c8ff}
 <h2>Image Compressor</h2>
 <p>Reduce image file size easily.</p>
 <input type="file" id="compressImage" accept="image/*">
+  <label>Compression Quality: <span id="qualityValue">60</span>%</label>
+
+<input
+type="range"
+id="qualitySlider"
+min="10"
+max="100"
+value="60"
+oninput="document.getElementById('qualityValue').innerText=this.value"
+>
+
+<img id="compressPreview"
+style="display:none;width:100%;margin-top:15px;border-radius:10px;">
+
+<p id="sizeInfo" style="margin:15px 0;color:#00e5ff;"></p>
+
+<a id="downloadArea"
+style="display:none;background:#00c8ff;color:#00101a;padding:12px;border-radius:8px;text-decoration:none;font-weight:bold;">
+Download Image
+</a>
 <button onclick="compress()">Compress Image</button>
 </div>
 
