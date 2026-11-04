@@ -262,3 +262,25 @@ function updateVexoraClock() {
 
 updateVexoraClock();
 setInterval(updateVexoraClock, 1000);
+const holoCard = document.getElementById("holoCard");
+
+if (holoCard) {
+  holoCard.addEventListener("mousemove", (e) => {
+    const rect = holoCard.getBoundingClientRect();
+
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const rotateY = ((x / rect.width) - 0.5) * 20;
+    const rotateX = (0.5 - (y / rect.height)) * 20;
+
+    holoCard.style.animation = "none";
+    holoCard.style.transform =
+      `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  });
+
+  holoCard.addEventListener("mouseleave", () => {
+    holoCard.style.transform = "";
+    holoCard.style.animation = "";
+  });
+}
