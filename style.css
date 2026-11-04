@@ -943,3 +943,33 @@ html {
 .holo-card .holo-glow {
   z-index: 1;
 }
+.holo-card {
+  border: 2px solid transparent;
+  background:
+    linear-gradient(145deg, #101f3d, #050914) padding-box,
+    linear-gradient(135deg, #00eaff, #3155ff, #b04dff, #00eaff) border-box;
+  background-size: 100% 100%, 300% 300%;
+  animation: holoFloat 4s ease-in-out infinite,
+             neonBorder 5s linear infinite;
+}
+
+@keyframes neonBorder {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
+
+.holo-card h2 {
+  color: #ffffff;
+  animation: nameGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes nameGlow {
+  from {
+    text-shadow: 0 0 5px #00c8ff;
+  }
+  to {
+    text-shadow: 0 0 10px #00c8ff,
+                 0 0 25px #008cff,
+                 0 0 40px #3155ff;
+  }
+}
