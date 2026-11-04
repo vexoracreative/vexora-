@@ -444,3 +444,30 @@ footer p {
     transition-duration: .01ms !important;
   }
 }
+
+/* VEXORA - FINAL INTERACTION STYLES */
+
+section {
+  opacity: 0;
+  transform: translateY(25px);
+  transition: opacity .8s ease, transform .8s ease;
+}
+
+section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.nav-links a.active {
+  color: #00e5ff;
+  text-shadow: 0 0 15px #00aaff;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: #00aaff;
+  color: white;
+}
