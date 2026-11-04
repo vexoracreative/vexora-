@@ -707,3 +707,51 @@ html {
   margin-top: 12px;
   font-size: 15px;
 }
+.earth-section {
+  text-align: center;
+  margin: 70px auto;
+  padding: 40px 20px;
+  overflow: hidden;
+}
+
+.earth-section h2 {
+  color: #00c8ff;
+  letter-spacing: 5px;
+  text-shadow: 0 0 15px #008cff;
+}
+
+.earth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 35px;
+  perspective: 1000px;
+}
+
+.earth {
+  width: 230px;
+  height: 230px;
+  border-radius: 50%;
+  background-image: url("https://raw.githubusercontent.com/turban/webgl-earth/master/images/2_no_clouds_4k.jpg");
+  background-size: auto 100%;
+  background-repeat: repeat-x;
+  box-shadow: inset -25px -10px 35px #000,
+              0 0 35px #008cff,
+              0 0 70px rgba(0, 140, 255, 0.4);
+  animation: rotateEarth 20s linear infinite;
+}
+
+@keyframes rotateEarth {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+
+.earth-section p {
+  color: #9ab8d8;
+  letter-spacing: 3px;
+  font-size: 12px;
+}
