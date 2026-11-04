@@ -218,3 +218,23 @@ if (typingElement) {
 
   typeEffect();
 }
+// VEXORA 3D PLANET INTERACTION
+
+const planet = document.querySelector(".planet");
+const container = document.querySelector(".planet-container");
+
+if (planet && container) {
+  container.addEventListener("mousemove", (e) => {
+    const rect = container.getBoundingClientRect();
+
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+    planet.style.transform =
+      `translateY(-8px) rotateX(${-y * 25}deg) rotateY(${x * 25}deg)`;
+  });
+
+  container.addEventListener("mouseleave", () => {
+    planet.style.transform = "";
+  });
+}
