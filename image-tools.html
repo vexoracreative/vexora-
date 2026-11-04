@@ -135,7 +135,8 @@ pdf.save('VEXORA-images.pdf');
 document.getElementById('status').innerText='PDF created successfully!';
 }
 
-function compress(){
+async function compress(){
+
 const file=document.getElementById('compressImage').files[0];
 
 if(!file){
@@ -143,32 +144,78 @@ alert('Please select an image first!');
 return;
 }
 
-const quality=document.getElementById('qualitySlider').value/100;
-const img=new Image();
+const targetOption=Number(document.getElementById('targetKB').value);
+const customValue=Number(document.getElementById('customKB').value);
 
-img.onload=()=>{
+const targetKB=customValue>0 ? customValue : targetOption;
+const targetBytes=targetKB*1024;
+
+const qualitySlider=Number(document.getElementById('qualitySlider').value)/100;
+
+const img=new Image();
+const imageURL=URL.createObjectURL(file);
+
+img.onload=async()=>{
+
 const canvas=document.createElement('canvas');
 canvas.width=img.width;
 canvas.height=img.height;
 
 canvas.getContext('2d').drawImage(img,0,0);
 
-canvas.toBlob(blob=>{
+const makeBlob=(quality)=>new Promise(resolve=>{
+canvas.toBlob(resolve,'image/jpeg',quality);
+});
 
-if(!blob){
+let bestBlob=null;
+
+if(targetKB===0){
+
+bestBlob=await makeBlob(qualitySlider);
+
+}else{
+
+let low=0.05;
+let high=0.95;
+
+for(let i=0;i<10;i++){
+
+const mid=(low+high)/2;
+const blob=await makeBlob(mid);
+
+if(!blob) continue;
+
+if(blob.size<=targetBytes){
+bestBlob=blob;
+low=mid;
+}else{
+high=mid;
+}
+
+}
+
+if(!bestBlob){
+bestBlob=await makeBlob(0.05);
+}
+}
+
+URL.revokeObjectURL(imageURL);
+
+if(!bestBlob){
 alert('Compression failed!');
 return;
 }
 
 const originalSize=(file.size/1024).toFixed(2);
-const newSize=(blob.size/1024).toFixed(2);
+const newSize=(bestBlob.size/1024).toFixed(2);
 
 document.getElementById('sizeInfo').innerText=
 'Original: '+originalSize+' KB | Compressed: '+newSize+' KB';
 
-const url=URL.createObjectURL(blob);
+const url=URL.createObjectURL(bestBlob);
 
 document.getElementById('compressPreview').src=url;
+document.getElementById('compressPreview').style.display='block';
 
 const download=document.getElementById('downloadArea');
 download.href=url;
@@ -176,15 +223,20 @@ download.download='VEXORA-compressed.jpg';
 download.style.display='inline-block';
 
 document.getElementById('status').innerText=
-'Image compressed successfully!';
-
-},'image/jpeg',quality);
+bestBlob.size<=targetBytes || targetKB===0
+?'Compression successful!'
+:'Target size could not be reached. Try a larger KB target.';
 
 };
 
-img.src=URL.createObjectURL(file);
-}
+img.onerror=()=>{
+URL.revokeObjectURL(imageURL);
+alert('Unable to load this image!');
+};
 
+img.src=imageURL;
+
+}
 function resize(){
 const file=document.getElementById('resizeImage').files[0];
 if(!file){alert('Select an image first');return;}
