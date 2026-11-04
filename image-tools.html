@@ -80,6 +80,20 @@ style="display:none;width:100%;margin-top:15px;border-radius:10px;">
 <a id="downloadArea"
 style="display:none;background:#00c8ff;color:#00101a;padding:12px;border-radius:8px;text-decoration:none;font-weight:bold;">
 Download Image
+  <label style="display:block;margin-top:15px;">
+  Target Image Size:
+</label>
+
+<select id="targetKB" style="padding:10px;width:100%;margin:10px 0;">
+  <option value="50">50 KB</option>
+  <option value="100">100 KB</option>
+  <option value="200">200 KB</option>
+  <option value="500">500 KB</option>
+  <option value="0">Original quality</option>
+</select>
+
+<label>Custom Size (KB):</label>
+<input type="number" id="customKB" placeholder="Enter KB" min="1">
 </a>
 <button onclick="compress()">Compress Image</button>
 </div>
