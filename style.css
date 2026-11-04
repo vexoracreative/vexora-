@@ -576,3 +576,85 @@ html {
     top: 40px;
   }
 }
+/* VEXORA GALAXY UPGRADE */
+
+.planet-container {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at center, rgba(0, 110, 255, 0.12), transparent 65%);
+}
+
+/* Orbiting Moon */
+.planet {
+  z-index: 2;
+}
+
+.planet::before {
+  content: "";
+  position: absolute;
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  margin: -11px;
+  background: radial-gradient(circle at 30% 30%, #ffffff, #00cfff 45%, #0750a0);
+  box-shadow: 0 0 18px #00d9ff;
+  animation: moonOrbit 7s linear infinite;
+  z-index: 5;
+}
+
+@keyframes moonOrbit {
+  from {
+    transform: rotate(0deg) translateX(135px) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translateX(135px) rotate(-360deg);
+  }
+}
+
+/* Galaxy Glow */
+.planet-container::before {
+  content: "";
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: conic-gradient(
+    transparent,
+    rgba(0, 217, 255, 0.2),
+    transparent,
+    rgba(0, 100, 255, 0.2),
+    transparent
+  );
+  filter: blur(25px);
+  animation: galaxySpin 15s linear infinite;
+  z-index: -1;
+}
+
+@keyframes galaxySpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Twinkling Stars */
+.planet-container::after {
+  content: "✦       ·       ✧       ·       ✦";
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  top: 15%;
+  color: #00d9ff;
+  font-size: 20px;
+  letter-spacing: 18px;
+  opacity: 0.7;
+  animation: starTwinkle 2s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes starTwinkle {
+  from { opacity: 0.25; }
+  to { opacity: 1; }
+}
