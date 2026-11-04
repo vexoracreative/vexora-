@@ -239,3 +239,26 @@ if (planet && container) {
     planet.style.setProperty("--tiltY", "0deg");
   });
 }
+function updateVexoraClock() {
+  const now = new Date();
+
+  const time = now.toLocaleTimeString("en-IN", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true
+  });
+
+  const date = now.toLocaleDateString("en-IN", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  });
+
+  document.getElementById("digital-time").textContent = time;
+  document.getElementById("digital-date").textContent = date;
+}
+
+updateVexoraClock();
+setInterval(updateVexoraClock, 1000);
