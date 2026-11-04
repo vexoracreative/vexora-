@@ -755,3 +755,38 @@ html {
   letter-spacing: 3px;
   font-size: 12px;
 }
+.earth-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.earth-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(2px 2px at 20% 30%, #00d9ff 90%, transparent),
+    radial-gradient(2px 2px at 70% 20%, #ffffff 90%, transparent),
+    radial-gradient(3px 3px at 85% 65%, #00c8ff 90%, transparent),
+    radial-gradient(2px 2px at 35% 80%, #ffffff 90%, transparent),
+    radial-gradient(3px 3px at 55% 45%, #008cff 90%, transparent);
+  background-size: 250px 250px;
+  animation: spaceStars 12s linear infinite;
+}
+
+@keyframes spaceStars {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 250px 250px;
+  }
+}
+
+.earth-section h2,
+.earth-container,
+.earth-section p {
+  position: relative;
+  z-index: 1;
+}
