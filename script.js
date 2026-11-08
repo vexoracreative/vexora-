@@ -338,19 +338,48 @@ window.showAI = function(mode) {
   }
 };
 
-window.sendVexoraMessage = function() {
+window.sendVexoraMessage = async function() {
   const input = document.getElementById("chatInput");
   const messages = document.getElementById("chatMessages");
 
-  if (!input.value.trim()) return;
+  const userText = input.value.trim();
+  if (!userText) return;
 
-  const message = document.createElement("p");
-  message.textContent = "You: " + input.value;
-  messages.appendChild(message);
-
-  const notice = document.createElement("p");
-  notice.textContent = "VEXORA AI: AI connection is coming soon!";
-  messages.appendChild(notice);
+  const userMsg = document.createElement("p");
+  userMsg.textContent = "You: " + userText;
+  messages.appendChild(userMsg);
 
   input.value = "";
+
+  const aiMsg = document.createElement("p");
+  aiMsg.textContent = "VEXORA AI is thinking...";
+  messages.appendChild(aiMsg);
+
+  try {
+    const response = await fetch(
+      "https://floral-sun-2889.rajumurkata.workers.dev/chat",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          message: userText
+        })
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || "AI connection failed");
+    }
+
+    aiMsg.textContent = "VEXORA AI: " + data.reply;
+
+  } catch (error) {
+    aiMsg.textContent = "VEXORA AI: " + error.message;
+  }
+
+  messages.scrollTop = messages.scrollHeight;
 };
