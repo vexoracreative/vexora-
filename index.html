@@ -412,6 +412,45 @@ send.onclick = async () => {
 input.addEventListener("keydown", e => {
   if (e.key === "Enter") send.click();
 });
-</script>
+</script> 
+  <!-- VEXORA AI BUTTON -->
+<div class="vexora-ai-card">
+  <div class="ai-icon">🤖</div>
+  <h2>VEXORA AI</h2>
+  <p>Your futuristic AI assistant</p>
+  <a href="ai-chat.html" class="ai-open-btn">
+    LAUNCH AI 🚀
+  </a>
+</div>
+
+<style>
+.vexora-ai-card {
+  background: linear-gradient(145deg,#071426,#001b35);
+  border: 1px solid #00aaff;
+  border-radius: 20px;
+  padding: 30px;
+  margin: 35px auto;
+  max-width: 500px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 0 20px #008cff55;
+}
+.vexora-ai-card h2 {
+  color: #00e5ff;
+  letter-spacing: 3px;
+}
+.ai-icon {
+  font-size: 55px;
+}
+.ai-open-btn {
+  display: inline-block;
+  padding: 12px 25px;
+  background: #00aaff;
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: bold;
+}
+</style>
 </body>
 </html>
